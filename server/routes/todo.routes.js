@@ -18,9 +18,10 @@ router.post("/todo", (request, response, next) => {
     });
 });
 
-// GET Todos
-router.get("/todo", (request, response, next) => {
-  Todo.find({})
+// GET Todos from user
+router.get("/todo/:userId", (request, response, next) => {
+  const { userId } = request.params;
+  Todo.find({ user: userId })
     .then((todos) => {
       console.log("Retrieved todos -> ", todos);
       response.status(200).json(todos);
@@ -31,10 +32,11 @@ router.get("/todo", (request, response, next) => {
     });
 });
 
-// GET specific Todo
-router.get("/todo/:todoId", (request, response, next) => {
-  const { todoId } = request.params;
+// GET specific Todo from user
+router.get("/todo/:userId/:todoId", (request, response, next) => {
+  const { userId, todoId } = request.params;
   Todo.findById(todoId)
+    // .populate(todoId)
     .then((todo) => {
       console.log("Retrieved todo -> ", todo);
       response.status(200).json(todo);
@@ -46,12 +48,12 @@ router.get("/todo/:todoId", (request, response, next) => {
 });
 
 // UPDATE Todo
-router.put("/todo/:todoId", (request, response, next) => {
+router.put("/todo/:userId/:todoId", (request, response, next) => {
   const { todoId } = request.params;
   Todo.findByIdAndUpdate(todoId, request.body, { new: true })
     .then((updatedTodo) => {
       console.log("Updated todo -> ", updatedTodo);
-      response.status(204).json(updatedTodo);
+      response.status(204).json({ message: `Todo ${todoId} updated` });
     })
     .catch((error) => {
       console.log("Error updating todo -> ", error);
@@ -60,7 +62,7 @@ router.put("/todo/:todoId", (request, response, next) => {
 });
 
 // DELETE Todo
-router.delete("/todo/:todoId", (request, response, next) => {
+router.delete("/todo/:userId/:todoId", (request, response, next) => {
   const { todoId } = request.params;
   Todo.findByIdAndDelete(todoId)
     .then((deletedTodo) => {
