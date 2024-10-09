@@ -1,7 +1,7 @@
 import "./SignupPage.css";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import authService from "../../services/auth.service";
+import axios from "axios";
 
 function SignupPage() {
   const [email, setEmail] = useState("");
@@ -17,31 +17,34 @@ function SignupPage() {
 
   const handleSignupSubmit = (e) => {
     e.preventDefault();
+
+    // Validate there is email password and name
+    if (!name || !email || !password) {
+      alert("Please fill all fields");
+      return;
+    }
+
     // Create an object representing the request body
     const requestBody = { email, password, name };
 
     // Send a request to the server using axios
-    /* 
-    const authToken = localStorage.getItem("authToken");
-    axios.post(
-      `${process.env.REACT_APP_SERVER_URL}/auth/signup`, 
-      requestBody, 
-      { headers: { Authorization: `Bearer ${authToken}` },
-    })
-    .then((response) => {})
-    */
 
-    // Or using a service
-    authService
-      .signup(requestBody)
+    const authToken = localStorage.getItem("authToken");
+    axios
+      .post(
+        `${process.env.REACT_APP_SERVER_URL}/auth/signup`,
+        requestBody /* {headers: { Authorization: `Bearer ${authToken}` },} */
+      )
       .then((response) => {
-        // If the POST request is successful redirect to the login page
-        navigate("/login");
+        console.log("Signup successfull", response);
+        setName("");
+        setEmail("");
+        setPassword("");
+        navigate("/");
       })
       .catch((error) => {
-        // If the request resolves with an error, set the error message in the state
-        const errorDescription = error.response.data.message;
-        setErrorMessage(errorDescription);
+        console.log("Error signing up ", error);
+        alert("An error occured during signup. Please try again.");
       });
   };
 
