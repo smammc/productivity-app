@@ -6,8 +6,10 @@ const Todo = require("../models/Todo.model");
 const router = express.Router();
 
 // POST Todo
-router.post("/todo", (request, response, next) => {
-  Todo.create(request.body)
+router.post("/todo/:userId", (request, response, next) => {
+  const { userId } = request.params;
+  const { name } = request.body;
+  Todo.create({ name, userId })
     .then((createdTodo) => {
       console.log("Todo created -> ", createdTodo);
       response.status(201).json(createdTodo);

@@ -1,6 +1,25 @@
-const { expressjwt: jwt } = require("express-jwt");
+const jwt = require("jsonwebtoken");
 
-// Instantiate the JWT token validation middleware
+const isAuthenticated = (req, res, next) => {
+  try {
+    if (!req.headers.authorization) {
+      return res.status(401).json({ message: "No headers provided" });
+    }
+
+    const token = req.headers.authorization.split(" ")[1];
+    if (!token) {
+      return res.status(401).json({ message: "Token not provided" });
+    }
+
+    req.payload = payload;
+    next();
+  } catch (error) {
+    res.status(401).json({ message: "Invalid or expired token" });
+  }
+};
+module.exports = isAuthenticated;
+
+/* // Instantiate the JWT token validation middleware
 const isAuthenticated = jwt({
   secret: process.env.TOKEN_SECRET,
   algorithms: ["HS256"],
@@ -26,4 +45,4 @@ function getTokenFromHeaders(req) {
 // Export the middleware so that we can use it to create protected routes
 module.exports = {
   isAuthenticated,
-};
+}; */
