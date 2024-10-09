@@ -7,6 +7,11 @@ const todoSchema = new Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
+    status: {
+      type: String,
+      enum: ["Ongoing", "Done"],
+      default: "Ongoing",
+    },
   },
   { timestamps: true }
 );
