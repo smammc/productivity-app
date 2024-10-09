@@ -1,8 +1,8 @@
 import "./LoginPage.css";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/auth.context";
-import authService from "../../services/auth.service";
+import axios from "axios";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -11,38 +11,36 @@ function LoginPage() {
 
   const navigate = useNavigate();
 
-  const { storeToken, authenticateUser } = useContext(AuthContext);
+  const { storeToken, isLoggedIn } = useContext(AuthContext);
 
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    const requestBody = { email, password };
+    const userCredentials = { email, password };
 
     // Send a request to the server using axios
-    /* 
-    axios.post(`${process.env.REACT_APP_SERVER_URL}/auth/login`)
-      .then((response) => {})
-    */
 
-    // Or using a service
-    authService
-      .login(requestBody)
+    axios
+      .post(`${process.env.REACT_APP_SERVER_URL}/auth/login`, userCredentials)
       .then((response) => {
-        // If the POST request is successful store the authentication token,
-        // after the token is stored authenticate the user
-        // and at last navigate to the home page
-        storeToken(response.data.authToken);
-        authenticateUser();
-        navigate("/");
+        // Save token in localstorage
+        storeToken(response);
+        console.log("Login successful: ", response);
       })
       .catch((error) => {
-        // If the request resolves with an error, set the error message in the state
-        const errorDescription = error.response.data.message;
-        setErrorMessage(errorDescription);
+        console.error("Error loggin in: ", error);
+        alert("Login failed. Please check your credentials");
       });
   };
+
+  // Redirect to dashboard when the user successfully logs in
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/profile");
+    }
+  }, [isLoggedIn, navigate]);
 
   return (
     <div className="LoginPage">
