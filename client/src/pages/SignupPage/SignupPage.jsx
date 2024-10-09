@@ -29,7 +29,7 @@ function SignupPage() {
 
     // Send a request to the server using axios
 
-    const authToken = localStorage.getItem("authToken");
+    // const authToken = localStorage.getItem("authToken");
     axios
       .post(
         `${process.env.REACT_APP_SERVER_URL}/auth/signup`,
