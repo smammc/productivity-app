@@ -28,13 +28,8 @@ function SignupPage() {
     const requestBody = { email, password, name };
 
     // Send a request to the server using axios
-
-    // const authToken = localStorage.getItem("authToken");
     axios
-      .post(
-        `${process.env.REACT_APP_SERVER_URL}/auth/signup`,
-        requestBody /* {headers: { Authorization: `Bearer ${authToken}` },} */
-      )
+      .post(`${process.env.REACT_APP_SERVER_URL}/auth/signup`, requestBody)
       .then((response) => {
         console.log("Signup successfull", response);
         setName("");
@@ -50,30 +45,58 @@ function SignupPage() {
 
   return (
     <div className="SignupPage">
-      <h1>Sign Up</h1>
+      <div className="title-container">
+        <h1 className="title">Productivity App</h1>
+      </div>
+      <div className="motto">
+        <p>
+          A productivity app that helps you organize and prioritize your tasks
+        </p>
+      </div>
+      <div className="signup-container">
+        <div className="heading">Signup</div>
 
-      <form onSubmit={handleSignupSubmit}>
-        <label>Email:</label>
-        <input type="email" name="email" value={email} onChange={handleEmail} />
-
-        <label>Password:</label>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handlePassword}
-        />
-
-        <label>Name:</label>
-        <input type="text" name="name" value={name} onChange={handleName} />
-
-        <button type="submit">Sign Up</button>
-      </form>
-
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
-
-      <p>Already have account?</p>
-      <Link to={"/login"}> Login</Link>
+        <form onSubmit={handleSignupSubmit} className="signup-form">
+          <input
+            required=""
+            class="input"
+            type="name"
+            name="name"
+            id="name"
+            placeholder="Name"
+            value={name}
+            onChange={handleName}
+          />
+          <input
+            required=""
+            class="input"
+            type="email"
+            name="email"
+            id="email"
+            placeholder="E-mail"
+            value={email}
+            onChange={handleEmail}
+          />
+          <input
+            required=""
+            class="input"
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Password"
+            value={password}
+            onChange={handlePassword}
+          />
+          <button className="login-button" type="submit">
+            Sign Up
+          </button>
+        </form>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        <hr className="signup-divider" />
+        <p className="signup-text">
+          Already have account? <Link to={"/"}> Login</Link>
+        </p>
+      </div>
     </div>
   );
 }
