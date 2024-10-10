@@ -82,13 +82,14 @@ function HomePage() {
             onChange={handlePassword}
           />
           <button className="login-button" type="submit">
-            Sign Up
+            Log in
           </button>
         </form>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
         <hr className="login-divider" />
         <div className="signup">
           <p className="signup-text">
-            Don't have an account? <Link to={"/signup"}> Sign-up</Link>
+            Don't have an account? <Link to={"/signup"}> Sign up</Link>
           </p>
         </div>
       </div>
