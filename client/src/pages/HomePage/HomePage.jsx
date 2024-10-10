@@ -1,6 +1,55 @@
 import "./HomePage.css";
+import { useState, useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/auth.context";
+import axios from "axios";
 
 function HomePage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState(undefined);
+
+  const navigate = useNavigate();
+
+  const { storeToken, isLoggedIn, authenticateUser } = useContext(AuthContext);
+
+  const handleEmail = (e) => setEmail(e.target.value);
+  const handlePassword = (e) => setPassword(e.target.value);
+
+  const handleLoginSubmit = (e) => {
+    e.preventDefault();
+
+    // Validate there is email and password
+    if (!email || !password) {
+      alert("Please fill all fields");
+      return;
+    }
+
+    const userCredentials = { email, password };
+
+    // Send a request to the server using axios
+    axios
+      .post(`${process.env.REACT_APP_SERVER_URL}/auth/login`, userCredentials)
+      .then((response) => {
+        // Save token in localstorage
+        const token = response.data.authToken;
+        storeToken(token);
+        authenticateUser();
+        console.log("Login successful: ", response);
+      })
+      .catch((error) => {
+        console.error("Error loggin in: ", error);
+        alert("Login failed. Please check your credentials");
+      });
+  };
+
+  // Redirect to dashboard when the user successfully logs in
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/profile");
+    }
+  }, [isLoggedIn, navigate]);
+
   return (
     <div>
       <div className="title-container">
@@ -13,7 +62,7 @@ function HomePage() {
       </div>
       <div className="login-container">
         <div className="heading">Sign In</div>
-        <form action="" className="login-form">
+        <form onSubmit={handleLoginSubmit} className="login-form">
           <input
             required=""
             class="input"
@@ -21,6 +70,7 @@ function HomePage() {
             name="email"
             id="email"
             placeholder="E-mail"
+            onChange={handleEmail}
           />
           <input
             required=""
@@ -29,12 +79,17 @@ function HomePage() {
             name="password"
             id="password"
             placeholder="Password"
+            onChange={handlePassword}
           />
-          <input className="login-button" type="submit" value="Sign In" />
+          <button className="login-button" type="submit">
+            Sign Up
+          </button>
         </form>
-        <hr className="divider" />
+        <hr className="login-divider" />
         <div className="signup">
-          <p className="signup-text">Don't have an account? Sign-up</p>
+          <p className="signup-text">
+            Don't have an account? <Link to={"/signup"}> Sign-up</Link>
+          </p>
         </div>
       </div>
     </div>
