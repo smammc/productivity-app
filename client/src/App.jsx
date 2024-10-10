@@ -1,3 +1,4 @@
+import "@fontsource/roboto-mono";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 
@@ -13,7 +14,7 @@ import IsAnon from "./components/IsAnon/IsAnon";
 function App() {
   return (
     <div className="App">
-      <Navbar />
+      {/* <Navbar /> */}
 
       <Routes>
         <Route path="/" element={<HomePage />} />

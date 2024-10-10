@@ -11,7 +11,7 @@ function LoginPage() {
 
   const navigate = useNavigate();
 
-  const { storeToken, isLoggedIn } = useContext(AuthContext);
+  const { storeToken, isLoggedIn, authenticateUser } = useContext(AuthContext);
 
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
@@ -26,7 +26,9 @@ function LoginPage() {
       .post(`${process.env.REACT_APP_SERVER_URL}/auth/login`, userCredentials)
       .then((response) => {
         // Save token in localstorage
-        storeToken(response);
+        const token = response.data.authToken;
+        storeToken(token);
+        authenticateUser();
         console.log("Login successful: ", response);
       })
       .catch((error) => {
