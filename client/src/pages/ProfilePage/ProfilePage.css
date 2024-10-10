@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  align-content: center;
+  padding-top: 50px;
+}
+
+.info {
+  width: 600px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+h1 {
+  font-size: 64px;
+}
+
+p {
+  font-size: 30px;
+}
+
+.pic {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  display: flex;
+  align-content: center;
+}

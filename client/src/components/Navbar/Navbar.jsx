@@ -1,3 +1,7 @@
+import homeIcon from "../../images/home.png";
+import logoutIcon from "../../images/logout.png";
+import profileIcon from "../../images/profile.png";
+
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
@@ -6,39 +10,31 @@ import { AuthContext } from "../../context/auth.context";
 function Navbar() {
   // Subscribe to the AuthContext to gain access to
   // the values from AuthContext.Provider's `value` prop
-  const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
+  const { logOutUser } = useContext(AuthContext);
 
   return (
     <nav>
-      <Link to="/">
-        <button>Home</button>
-      </Link>
+      <div>
+        <Link to="/">
+          <img src={homeIcon} alt="dashboard" className="icon" />
+        </Link>
+      </div>
+      <div>
+        <Link to="/profile">
+          <img src={profileIcon} alt="profile" className="icon" />
+        </Link>
+      </div>
 
-      {isLoggedIn && (
-        <>
-          <button onClick={logOutUser}>Logout</button>
-
-          <Link to="/profile">
-            <button>Profile</button>
-            {/* <img src="https://picsum.photos/id/402/200/300" style={{ width: 50, height: 50, borderRadius: 25}} alt="profile" /> */}
-          </Link>
-
-          <span>{user && user.name}</span>
-        </>
-      )}
-
-      {!isLoggedIn && (
-        <>
-          <Link to="/signup">
-            {" "}
-            <button>Sign Up</button>{" "}
-          </Link>
-          <Link to="/login">
-            {" "}
-            <button>Login</button>{" "}
-          </Link>
-        </>
-      )}
+      <div>
+        <Link>
+          <img
+            src={logoutIcon}
+            alt="logout"
+            className="icon"
+            onClick={logOutUser}
+          />
+        </Link>
+      </div>
     </nav>
   );
 }

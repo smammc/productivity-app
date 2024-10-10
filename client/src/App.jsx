@@ -10,13 +10,25 @@ import Navbar from "./components/Navbar/Navbar";
 import IsPrivate from "./components/IsPrivate/IsPrivate";
 import IsAnon from "./components/IsAnon/IsAnon";
 
+import { useContext } from "react";
+import { AuthContext } from "./context/auth.context";
+
 function App() {
+  const { isLoggedIn } = useContext(AuthContext);
+
   return (
     <div className="App">
-      {/* <Navbar /> */}
+      {isLoggedIn && <Navbar />}
 
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/"
+          element={
+            <IsAnon>
+              <HomePage />
+            </IsAnon>
+          }
+        />
 
         <Route
           path="/profile"
