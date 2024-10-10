@@ -1,0 +1,75 @@
+.title-container {
+  width: 1215px;
+  height: 175px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.title {
+  font-size: 100px;
+}
+
+.motto {
+  font-size: 36px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 900px;
+  height: 160px;
+}
+
+.signup-container {
+  width: 500px;
+  height: 450px;
+  border-radius: 20px;
+  background-color: #734c30;
+  display: block;
+  margin: 0 auto 50px auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.heading {
+  text-align: center;
+  font-size: 20px;
+  margin: 20px auto;
+  color: #fff;
+}
+
+.signup-form {
+  width: 450px;
+  height: 50px;
+  background-color: #fff;
+  display: block;
+  margin: 25px auto 10px auto;
+}
+
+.signup-button {
+  width: 50%;
+  height: 50px;
+  background-color: #c6c4d4;
+  border-radius: 10px;
+  display: block;
+  margin: 25px auto 10px auto;
+  font-size: 16px;
+}
+
+.input {
+  width: 450px;
+  height: 50px;
+  font-size: 22px;
+}
+
+.signup-divider {
+  margin: 14em auto 1em auto;
+  width: 90%; /* Adjust to your layout needs */
+  border: none;
+  border-top: 2px solid white;
+}
+
+.signup-text {
+  color: #fff;
+  font-size: 20px;
+}
