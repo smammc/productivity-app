@@ -11,7 +11,8 @@ function HomePage() {
 
   const navigate = useNavigate();
 
-  const { storeToken, isLoggedIn, authenticateUser } = useContext(AuthContext);
+  const { storeToken, isLoading, isLoggedIn, authenticateUser } =
+    useContext(AuthContext);
 
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
@@ -45,10 +46,16 @@ function HomePage() {
 
   // Redirect to dashboard when the user successfully logs in
   useEffect(() => {
-    if (isLoggedIn) {
+    console.log(
+      "useEffect triggered. isLoggedIn:",
+      isLoggedIn,
+      "isLoading:",
+      isLoading
+    );
+    if (!isLoading && isLoggedIn) {
       navigate("/profile");
     }
-  }, [isLoggedIn, navigate]);
+  }, [isLoading, isLoggedIn, navigate]);
 
   return (
     <div>
@@ -65,7 +72,7 @@ function HomePage() {
         <form onSubmit={handleLoginSubmit} className="login-form">
           <input
             required=""
-            class="input"
+            className="input"
             type="email"
             name="email"
             id="email"
@@ -74,7 +81,7 @@ function HomePage() {
           />
           <input
             required=""
-            class="input"
+            className="input"
             type="password"
             name="password"
             id="password"

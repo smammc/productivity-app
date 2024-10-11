@@ -18,6 +18,7 @@ function AuthProviderWrapper(props) {
   const authenticateUser = () => {
     // Get the stored token from the localStorage
     const storedToken = localStorage.getItem("authToken");
+    console.log("Stored token: ", storedToken);
 
     // If the token exists in the localStorage
     if (storedToken) {
@@ -27,27 +28,35 @@ function AuthProviderWrapper(props) {
           headers: { Authorization: `Bearer ${storedToken}` },
         })
         .then((response) => {
+          console.log(response);
           // If the server verifies that JWT token is valid  ✅
           const user = response.data;
           // Update state variables
           setIsLoggedIn(true);
-          setIsLoading(false);
           setUser(user);
+          setIsLoading(false);
         })
         .catch((error) => {
+          console.error("Error during token verification: ", error);
           // If the server sends an error response (invalid token) ❌
           // Update state variables
           setIsLoggedIn(false);
-          setIsLoading(false);
           setUser(null);
+          setIsLoading(false);
         });
     } else {
       // If the token is not available
+      console.log("No token found.");
       setIsLoggedIn(false);
-      setIsLoading(false);
       setUser(null);
+      setIsLoading(false);
     }
   };
+
+  // Keeps the user logged in after reloading the page
+  useEffect(() => {
+    authenticateUser();
+  }, []);
 
   const removeToken = () => {
     localStorage.removeItem("authToken");
