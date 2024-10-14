@@ -11,8 +11,14 @@ function HomePage() {
 
   const navigate = useNavigate();
 
-  const { storeToken, isLoading, isLoggedIn, authenticateUser } =
+  const { storeToken, isLoading, isLoggedIn, authenticateUser, user } =
     useContext(AuthContext);
+
+  // Obtain userId
+  let _id;
+  if (isLoggedIn) {
+    _id = user._id;
+  }
 
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
@@ -52,8 +58,8 @@ function HomePage() {
       "isLoading:",
       isLoading
     );
-    if (!isLoading && isLoggedIn) {
-      navigate("/profile");
+    if (isLoggedIn) {
+      navigate(`/dashboard/:${_id}`);
     }
   }, [isLoading, isLoggedIn, navigate]);
 

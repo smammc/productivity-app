@@ -1,0 +1,52 @@
+.card-container {
+  height: 100px;
+  width: 800px;
+  margin: 10px auto;
+  background-color: #c6c4d4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.first {
+  height: 30px;
+  width: 40px;
+  margin-left: 10px;
+}
+
+.second {
+  width: 735px;
+  height: auto;
+  display: flex;
+  justify-items: start;
+  margin-left: 10px;
+}
+
+.third {
+  width: 25px;
+  height: auto;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.complete-button {
+  height: 30px;
+  width: 30px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.card-title {
+  color: black;
+}
+
+.img {
+  height: 25px;
+  width: 25px;
+}
+
+.delete-button {
+  display: flex;
+  padding-left: 20%;
+}
