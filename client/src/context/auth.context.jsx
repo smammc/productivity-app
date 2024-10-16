@@ -28,7 +28,7 @@ function AuthProviderWrapper(props) {
           headers: { Authorization: `Bearer ${storedToken}` },
         })
         .then((response) => {
-          console.log(response);
+          console.log("User authenticated: ", response);
           // If the server verifies that JWT token is valid  ✅
           const user = response.data;
           // Update state variables
@@ -53,6 +53,10 @@ function AuthProviderWrapper(props) {
     }
   };
 
+  useEffect(() => {
+    console.log("isLoggedIn changed: ", isLoggedIn);
+  }, [isLoggedIn]);
+
   // Keeps the user logged in after reloading the page
   useEffect(() => {
     authenticateUser();
@@ -68,12 +72,6 @@ function AuthProviderWrapper(props) {
     authenticateUser();
     navigate("/");
   };
-
-  useEffect(() => {
-    // Run this code once the AuthProviderWrapper component in the App loads for the first time.
-    // This effect runs when the application and the AuthProviderWrapper component load for the first time.
-    authenticateUser();
-  }, []);
 
   return (
     <AuthContext.Provider
