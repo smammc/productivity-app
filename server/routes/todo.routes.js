@@ -29,7 +29,7 @@ router.get("/todo/:userId", (request, response, next) => {
       response.status(200).json(todos);
     })
     .catch((error) => {
-      console.log("Error retrieving todos -> ", todos);
+      console.log("Error retrieving todos -> ", error);
       response.status(500).json({ error: "Failed to retrieve todos" });
     });
 });
@@ -55,7 +55,7 @@ router.put("/todo/:userId/:todoId", (request, response, next) => {
   Todo.findByIdAndUpdate(todoId, request.body, { new: true })
     .then((updatedTodo) => {
       console.log("Updated todo -> ", updatedTodo);
-      response.status(204).json({ message: `Todo ${todoId} updated` });
+      response.status(200).json({ message: `Todo ${todoId} updated` });
     })
     .catch((error) => {
       console.log("Error updating todo -> ", error);
