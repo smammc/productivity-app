@@ -1,0 +1,37 @@
+.new-task-container {
+  height: 100px;
+  width: 800px;
+  margin: 20px auto;
+  background-color: #c6c4d4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: center;
+}
+.task {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  height: 40px;
+  width: 650px;
+  font-size: 18px;
+  margin-right: 50px;
+}
+
+.button-container {
+  height: 30px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button {
+  background-color: #c6c4d4;
+  /* border: none; */
+}

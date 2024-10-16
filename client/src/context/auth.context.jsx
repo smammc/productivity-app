@@ -53,6 +53,10 @@ function AuthProviderWrapper(props) {
     }
   };
 
+  useEffect(() => {
+    console.log("isLoggedIn changed: ", isLoggedIn);
+  }, [isLoggedIn]);
+
   // Keeps the user logged in after reloading the page
   useEffect(() => {
     authenticateUser();

@@ -14,11 +14,8 @@ function HomePage() {
   const { storeToken, isLoading, isLoggedIn, authenticateUser, user } =
     useContext(AuthContext);
 
-  // Obtain userId
-  let _id;
-  if (isLoggedIn) {
-    _id = user._id;
-  }
+  // Get user _id if logged in
+  const _id = isLoggedIn && user ? user._id : null;
 
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
@@ -41,6 +38,7 @@ function HomePage() {
         // Save token in localstorage
         const token = response.data.authToken;
         storeToken(token);
+        // Authenticate user
         authenticateUser();
         console.log("Login successful: ", response);
       })
@@ -52,16 +50,13 @@ function HomePage() {
 
   // Redirect to dashboard when the user successfully logs in
   useEffect(() => {
-    console.log(
-      "useEffect triggered. isLoggedIn:",
-      isLoggedIn,
-      "isLoading:",
-      isLoading
-    );
+    console.log("useEffect triggered. isLoggedIn:", isLoggedIn);
+
+    // Ensure both `isLoggedIn` is true and `user._id` exists before navigating
     if (isLoggedIn) {
-      navigate(`/dashboard/:${_id}`);
+      navigate(`/dashboard/`);
     }
-  }, [isLoading, isLoggedIn, navigate]);
+  }, [isLoggedIn, navigate]);
 
   return (
     <div>

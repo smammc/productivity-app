@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.list-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.add-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  width: 30px;
+  margin: auto;
+}
+
+img {
+  height: 25px;
+  width: 25px;
+}

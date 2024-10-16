@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage/HomePage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
+import AddTaskPage from "./pages/AddTask/AddTaskPage";
 
 import Navbar from "./components/Navbar/Navbar";
 import IsPrivate from "./components/IsPrivate/IsPrivate";
@@ -15,7 +16,7 @@ import TaskCard from "./components/Card/TaskCard";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "./context/auth.context";
 
-import { fetchTasks } from "./services/tasksService";
+import { fetchTasks, deleteTask, addTask } from "./services/tasksService";
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -30,6 +31,25 @@ function App() {
       fetchTasks(_id).then((data) => setTasks(data));
     }
   }, [_id]);
+
+  // Delete task
+  const removeTask = (userId, taskId) => {
+    deleteTask(userId, taskId)
+      .then(() => {
+        setTasks(tasks.filter((task) => task._id !== taskId));
+      })
+      .catch((error) => console.log("Error deleting task: ", error));
+  };
+
+  // New task
+  const newTask = (userId, task) => {
+    addTask(userId, task)
+      .then((newTask) => {
+        console.log("APP: ", newTask);
+        setTasks([...tasks, newTask.data]);
+      })
+      .catch((error) => console.log("Error creating task: ", error));
+  };
 
   return (
     <div className="App">
@@ -67,7 +87,7 @@ function App() {
           path={`/dashboard/:userId`}
           element={
             <IsPrivate>
-              <DashboardPage tasks={tasks} />
+              <DashboardPage tasks={tasks} deleteTask={removeTask} />
             </IsPrivate>
           }
         />
@@ -77,6 +97,15 @@ function App() {
           element={
             <IsPrivate>
               <TaskCard />
+            </IsPrivate>
+          }
+        />
+
+        <Route
+          path={`/add-task`}
+          element={
+            <IsPrivate>
+              <AddTaskPage addTask={newTask} />
             </IsPrivate>
           }
         />
