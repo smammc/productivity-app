@@ -23,8 +23,6 @@ export default function AddTaskPage({ addTask }) {
       return;
     }
 
-    // const newTask = { task };
-
     addTask(user._id, task);
     setTask("");
     navigate(`/dashboard/${user._id}`);

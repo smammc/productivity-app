@@ -16,7 +16,12 @@ import TaskCard from "./components/Card/TaskCard";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "./context/auth.context";
 
-import { fetchTasks, deleteTask, addTask } from "./services/tasksService";
+import {
+  fetchTasks,
+  deleteTask,
+  addTask,
+  changeTaskStatus,
+} from "./services/tasksService";
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -49,6 +54,16 @@ function App() {
         setTasks([...tasks, newTask.data]);
       })
       .catch((error) => console.log("Error creating task: ", error));
+  };
+
+  // Change Task Status
+  const updateTaskStatus = (userId, taskId, status) => {
+    changeTaskStatus(userId, taskId, status)
+      .then((updatedStatus) => {
+        console.log("APP: ", updatedStatus);
+        return updatedStatus;
+      })
+      .catch((error) => console.log("Error updating status: ", error));
   };
 
   return (
@@ -87,7 +102,11 @@ function App() {
           path={`/dashboard/:userId`}
           element={
             <IsPrivate>
-              <DashboardPage tasks={tasks} deleteTask={removeTask} />
+              <DashboardPage
+                tasks={tasks}
+                deleteTask={removeTask}
+                updateTaskStatus={updateTaskStatus}
+              />
             </IsPrivate>
           }
         />

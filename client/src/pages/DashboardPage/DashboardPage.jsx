@@ -8,7 +8,7 @@ import TaskCard from "../../components/Card/TaskCard";
 import AddTaskPage from "../AddTask/AddTaskPage";
 
 export default function DashboardPage(props) {
-  const { tasks, deleteTask, addTask } = props;
+  const { tasks, deleteTask, updateTaskStatus } = props;
 
   // console.log("Dashboard: ", tasks);
   return (
@@ -21,6 +21,7 @@ export default function DashboardPage(props) {
               task={task}
               deleteTask={deleteTask}
               index={index}
+              updateTaskStatus={updateTaskStatus}
             />
           );
         })}

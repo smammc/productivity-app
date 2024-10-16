@@ -34,10 +34,27 @@
   margin-left: 10px;
 }
 
-.complete-button {
+.uncomplete-button {
   height: 25px;
   width: 25px;
   background-color: white;
+  border-radius: 50%;
+}
+
+.complete-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 25px;
+  width: 25px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.complete-circle {
+  height: 22px;
+  width: 22px;
+  background-color: black;
   border-radius: 50%;
 }
 

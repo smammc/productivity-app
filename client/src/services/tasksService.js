@@ -34,9 +34,23 @@ export const addTask = (userId, task) => {
       `${process.env.REACT_APP_SERVER_URL}/api/todo/${userId}`,
       { name: task }
     );
-    console.log(response.data);
     return response;
   } catch (error) {
     console.log("Error creating task: ", error);
+  }
+};
+
+// Change Task Status
+export const changeTaskStatus = async (userId, taskId, status) => {
+  // console.log("taskService: ", status);
+  try {
+    const response = await axios.put(
+      `${process.env.REACT_APP_SERVER_URL}/api/todo/${userId}/${taskId}`,
+      { status: status }
+    );
+    console.log("Updated:", response.data);
+    return response.data;
+  } catch (error) {
+    console.log("Error completing task: ", error);
   }
 };
