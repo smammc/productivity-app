@@ -31,11 +31,17 @@ function App() {
   const _id = isLoggedIn && user ? user._id : null;
 
   // Get user tasks
-  useEffect(() => {
+  /*   useEffect(() => {
     if (_id) {
       fetchTasks(_id).then((data) => setTasks(data));
     }
-  }, [_id]);
+  }, [_id]); */
+
+  const getTasks = (_id) => {
+    fetchTasks(_id)
+      .then((data) => setTasks(data))
+      .catch((error) => console.log("Error getting tasks: ", error));
+  };
 
   // Delete task
   const removeTask = (userId, taskId) => {
@@ -84,7 +90,7 @@ function App() {
           path={`/profile/:userId`}
           element={
             <IsPrivate>
-              <ProfilePage tasks={tasks} />
+              <ProfilePage tasks={tasks} getTasks={getTasks} />
             </IsPrivate>
           }
         />
@@ -104,6 +110,7 @@ function App() {
             <IsPrivate>
               <DashboardPage
                 tasks={tasks}
+                getTasks={getTasks}
                 deleteTask={removeTask}
                 updateTaskStatus={updateTaskStatus}
               />

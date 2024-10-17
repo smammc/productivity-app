@@ -1,11 +1,21 @@
 import addButton from "../../images/add.png";
 import "./DashboardPage.css";
 
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import TaskCard from "../../components/Card/TaskCard";
+import { AuthContext } from "../../context/auth.context";
 
 export default function DashboardPage(props) {
-  const { tasks, deleteTask, updateTaskStatus } = props;
+  const { tasks, getTasks, deleteTask, updateTaskStatus } = props;
+
+  const { user } = useContext(AuthContext);
+
+  const { _id } = user;
+
+  useEffect(() => {
+    getTasks(_id);
+  }, []);
 
   // console.log("Dashboard: ", tasks);
   return (
