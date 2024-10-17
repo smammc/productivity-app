@@ -1,6 +1,6 @@
 import "./HomePage.css";
 import { useState, useContext, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/auth.context";
 import axios from "axios";
 
@@ -41,22 +41,13 @@ function HomePage() {
         // Authenticate user
         authenticateUser();
         console.log("Login successful: ", response);
+        localStorage.setItem("authenticated", true);
       })
       .catch((error) => {
         console.error("Error loggin in: ", error);
         alert("Login failed. Please check your credentials");
       });
   };
-
-  // Redirect to dashboard when the user successfully logs in
-  useEffect(() => {
-    console.log("useEffect triggered. isLoggedIn:", isLoggedIn);
-
-    // Ensure both `isLoggedIn` is true and `user._id` exists before navigating
-    if (isLoggedIn) {
-      navigate(`/dashboard/`);
-    }
-  }, [isLoggedIn, navigate]);
 
   return (
     <div>

@@ -84,7 +84,7 @@ function App() {
           path={`/profile/:userId`}
           element={
             <IsPrivate>
-              <ProfilePage />
+              <ProfilePage tasks={tasks} />
             </IsPrivate>
           }
         />

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const AuthContext = React.createContext();
 
@@ -10,6 +10,7 @@ function AuthProviderWrapper(props) {
   const [user, setUser] = useState(null);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const storeToken = (token) => {
     localStorage.setItem("authToken", token);
@@ -53,9 +54,26 @@ function AuthProviderWrapper(props) {
     }
   };
 
-  useEffect(() => {
+  // Redirect user to dashboard page after sucessful login
+  /* useEffect(() => {
     console.log("isLoggedIn changed: ", isLoggedIn);
-  }, [isLoggedIn]);
+    if (isLoggedIn) {
+      navigate(`/dashboard/${user._id}`);
+    }
+  }, [isLoggedIn]); */
+
+  useEffect(() => {
+    const { pathname } = location; // Get the current route path
+    console.log("isLoggedIn changed: ", isLoggedIn);
+
+    // List of paths where the user should be redirected to the dashboard after login
+    const authPages = ["/", "/signup"];
+
+    // Check if the user is logged in and they are currently on a login/signup page
+    if (isLoggedIn && authPages.includes(pathname)) {
+      navigate(`/dashboard/${user._id}`);
+    }
+  }, [isLoggedIn, navigate, user, location]);
 
   // Keeps the user logged in after reloading the page
   useEffect(() => {
