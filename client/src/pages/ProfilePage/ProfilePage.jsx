@@ -1,12 +1,16 @@
 import defaultPicture from "../../images/defaultPicture.png";
 import "./ProfilePage.css";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/auth.context";
 
-function ProfilePage({ tasks }) {
+function ProfilePage({ tasks, getTasks }) {
   const { user } = useContext(AuthContext);
 
-  const { name, email } = user;
+  const { name, email, _id } = user;
+
+  useEffect(() => {
+    getTasks(_id);
+  }, []);
 
   console.log("Profile: ", tasks);
 

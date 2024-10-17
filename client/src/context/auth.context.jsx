@@ -54,6 +54,8 @@ function AuthProviderWrapper(props) {
     }
   };
 
+  // Redirect user to Dashboard after login
+  // Was not working on Homepage so moved it here.
   useEffect(() => {
     const { pathname } = location; // Get the current route path
     console.log("isLoggedIn changed: ", isLoggedIn);
