@@ -54,14 +54,6 @@ function AuthProviderWrapper(props) {
     }
   };
 
-  // Redirect user to dashboard page after sucessful login
-  /* useEffect(() => {
-    console.log("isLoggedIn changed: ", isLoggedIn);
-    if (isLoggedIn) {
-      navigate(`/dashboard/${user._id}`);
-    }
-  }, [isLoggedIn]); */
-
   useEffect(() => {
     const { pathname } = location; // Get the current route path
     console.log("isLoggedIn changed: ", isLoggedIn);
