@@ -1,11 +1,8 @@
 import addButton from "../../images/add.png";
 import "./DashboardPage.css";
 
-import { useContext, useState, useEffect } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
-import { AuthContext } from "../../context/auth.context";
+import { Link } from "react-router-dom";
 import TaskCard from "../../components/Card/TaskCard";
-import AddTaskPage from "../AddTask/AddTaskPage";
 
 export default function DashboardPage(props) {
   const { tasks, deleteTask, updateTaskStatus } = props;

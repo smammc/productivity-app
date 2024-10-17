@@ -13,7 +13,7 @@ export default function TaskCard({
   const { user } = useContext(AuthContext);
   const [taskStatus, setTaskStatus] = useState(task.status);
 
-  console.log("Inital status: ", taskStatus);
+  // console.log("Inital status: ", taskStatus);
 
   const handleStatus = async () => {
     // Determine the new status before updating the state and backend

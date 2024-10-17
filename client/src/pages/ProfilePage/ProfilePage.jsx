@@ -3,18 +3,25 @@ import "./ProfilePage.css";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/auth.context";
 
-function ProfilePage() {
+function ProfilePage({ tasks }) {
   const { user } = useContext(AuthContext);
 
   const { name, email } = user;
 
+  console.log("Profile: ", tasks);
+
   return (
-    <div className="container">
+    <div className="profile-container">
       <div className="info">
         <h1>{`${name}`}</h1>
         <p>Email: {`${email}`} </p>
-        <p>Open Tasks: 0</p>
-        <p>Closed Tasks: 0</p>
+        <p>
+          Open Tasks: {tasks.filter((task) => task.status === "Ongoing").length}
+        </p>
+        <p>
+          Closed Tasks:{" "}
+          {tasks.filter((task) => task.status !== "Ongoing").length}
+        </p>
       </div>
       <div className="pic">
         <img src={defaultPicture} alt="profile-pic" className="profile-pic" />
