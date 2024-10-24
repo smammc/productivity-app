@@ -35,9 +35,11 @@ function HomePage() {
     axios
       .post(`${process.env.REACT_APP_SERVER_URL}/auth/login`, userCredentials)
       .then((response) => {
+        console.log("Homepage response: ", response);
         // Save token in localstorage
         const token = response.data.authToken;
         storeToken(token);
+
         // Authenticate user
         authenticateUser();
         console.log("Login successful: ", response);
