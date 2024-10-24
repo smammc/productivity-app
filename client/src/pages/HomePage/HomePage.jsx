@@ -1,6 +1,6 @@
 import "./HomePage.css";
 import { useState, useContext, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/auth.context";
 import axios from "axios";
 
@@ -11,7 +11,11 @@ function HomePage() {
 
   const navigate = useNavigate();
 
-  const { storeToken, isLoggedIn, authenticateUser } = useContext(AuthContext);
+  const { storeToken, isLoading, isLoggedIn, authenticateUser, user } =
+    useContext(AuthContext);
+
+  // Get user _id if logged in
+  const _id = isLoggedIn && user ? user._id : null;
 
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
@@ -31,24 +35,21 @@ function HomePage() {
     axios
       .post(`${process.env.REACT_APP_SERVER_URL}/auth/login`, userCredentials)
       .then((response) => {
+        console.log("Homepage response: ", response);
         // Save token in localstorage
         const token = response.data.authToken;
         storeToken(token);
+
+        // Authenticate user
         authenticateUser();
         console.log("Login successful: ", response);
+        localStorage.setItem("authenticated", true);
       })
       .catch((error) => {
         console.error("Error loggin in: ", error);
         alert("Login failed. Please check your credentials");
       });
   };
-
-  // Redirect to dashboard when the user successfully logs in
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate("/profile");
-    }
-  }, [isLoggedIn, navigate]);
 
   return (
     <div>
@@ -65,7 +66,7 @@ function HomePage() {
         <form onSubmit={handleLoginSubmit} className="login-form">
           <input
             required=""
-            class="input"
+            className="input"
             type="email"
             name="email"
             id="email"
@@ -74,7 +75,7 @@ function HomePage() {
           />
           <input
             required=""
-            class="input"
+            className="input"
             type="password"
             name="password"
             id="password"

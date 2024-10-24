@@ -1,0 +1,73 @@
+.card-container {
+  height: 100px;
+  width: 800px;
+  margin: 10px auto;
+  background-color: #c6c4d4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.first {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  width: 40px;
+  margin-left: 10px;
+}
+
+.second {
+  width: 735px;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-items: start;
+  margin-left: 10px;
+}
+
+.third {
+  width: 25px;
+  height: auto;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.uncomplete-button {
+  height: 25px;
+  width: 25px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.complete-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 25px;
+  width: 25px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.complete-circle {
+  height: 22px;
+  width: 22px;
+  background-color: black;
+  border-radius: 50%;
+}
+
+.card-title {
+  color: black;
+}
+
+.img {
+  height: 25px;
+  width: 25px;
+}
+
+.delete-button {
+  display: flex;
+  padding-left: 20%;
+}

@@ -59,7 +59,7 @@ function SignupPage() {
         <form onSubmit={handleSignupSubmit} className="signup-form">
           <input
             required=""
-            class="input"
+            className="input"
             type="name"
             name="name"
             id="name"
@@ -69,7 +69,7 @@ function SignupPage() {
           />
           <input
             required=""
-            class="input"
+            className="input"
             type="email"
             name="email"
             id="email"
@@ -79,7 +79,7 @@ function SignupPage() {
           />
           <input
             required=""
-            class="input"
+            className="input"
             type="password"
             name="password"
             id="password"

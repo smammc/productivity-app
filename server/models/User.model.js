@@ -18,6 +18,12 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Name is required."],
     },
+    picture: {
+      type: String,
+      required: false,
+      default:
+        "https://res.cloudinary.com/deg9hmdpy/image/upload/v1729694391/profile-pictures/khpzsk33k1rnhi2jppu2.png",
+    },
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`

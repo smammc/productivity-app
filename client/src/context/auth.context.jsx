@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const AuthContext = React.createContext();
 
@@ -10,6 +10,7 @@ function AuthProviderWrapper(props) {
   const [user, setUser] = useState(null);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const storeToken = (token) => {
     localStorage.setItem("authToken", token);
@@ -18,6 +19,7 @@ function AuthProviderWrapper(props) {
   const authenticateUser = () => {
     // Get the stored token from the localStorage
     const storedToken = localStorage.getItem("authToken");
+    console.log("Stored token: ", storedToken);
 
     // If the token exists in the localStorage
     if (storedToken) {
@@ -27,27 +29,50 @@ function AuthProviderWrapper(props) {
           headers: { Authorization: `Bearer ${storedToken}` },
         })
         .then((response) => {
+          console.log("User authenticated: ", response);
           // If the server verifies that JWT token is valid  ✅
           const user = response.data;
           // Update state variables
           setIsLoggedIn(true);
-          setIsLoading(false);
           setUser(user);
+          setIsLoading(false);
         })
         .catch((error) => {
+          console.error("Error during token verification: ", error);
           // If the server sends an error response (invalid token) ❌
           // Update state variables
           setIsLoggedIn(false);
-          setIsLoading(false);
           setUser(null);
+          setIsLoading(false);
         });
     } else {
       // If the token is not available
+      console.log("No token found.");
       setIsLoggedIn(false);
-      setIsLoading(false);
       setUser(null);
+      setIsLoading(false);
     }
   };
+
+  // Redirect user to Dashboard after login
+  // Was not working on Homepage so moved it here.
+  useEffect(() => {
+    const { pathname } = location; // Get the current route path
+    console.log("isLoggedIn changed: ", isLoggedIn);
+
+    // List of paths where the user should be redirected to the dashboard after login
+    const authPages = ["/", "/signup"];
+
+    // Check if the user is logged in and they are currently on a login/signup page
+    if (isLoggedIn && authPages.includes(pathname)) {
+      navigate(`/dashboard/${user._id}`);
+    }
+  }, [isLoggedIn, navigate, user, location]);
+
+  // Keeps the user logged in after reloading the page
+  useEffect(() => {
+    authenticateUser();
+  }, []);
 
   const removeToken = () => {
     localStorage.removeItem("authToken");
@@ -59,12 +84,6 @@ function AuthProviderWrapper(props) {
     authenticateUser();
     navigate("/");
   };
-
-  useEffect(() => {
-    // Run this code once the AuthProviderWrapper component in the App loads for the first time.
-    // This effect runs when the application and the AuthProviderWrapper component load for the first time.
-    authenticateUser();
-  }, []);
 
   return (
     <AuthContext.Provider

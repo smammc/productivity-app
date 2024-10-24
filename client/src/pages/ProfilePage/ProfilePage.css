@@ -1,0 +1,102 @@
+.profile-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  align-content: center;
+  padding-top: 50px;
+}
+
+.info {
+  width: 600px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+h1 {
+  font-size: 64px;
+}
+
+p {
+  font-size: 30px;
+}
+
+.picture-container {
+  width: 300px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.picture {
+  width: 280px;
+  height: 280px;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border-style: solid;
+}
+
+.profile-pic {
+  width: 270px;
+  height: 270px;
+  margin: auto;
+  border-radius: 50%;
+}
+
+.empty {
+  width: 300px;
+  height: 20px;
+}
+
+/* General styling for the edit-button container */
+.edit-button {
+  position: relative; /* Ensure it stays within the picture container */
+  cursor: pointer; /* Show pointer cursor on hover */
+  width: 50px; /* Adjust based on your icon size */
+  height: 50px;
+  border-radius: 50%; /* Circular button */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0; /* Background color for the edit button */
+  transition: transform 0.2s ease, background-color 0.2s ease; /* Smooth transition for hover effects */
+}
+
+/* Style the edit icon (img inside the button) */
+.edit-button img {
+  width: 40px; /* Adjust icon size */
+  height: 40px;
+  transition: transform 0.2s ease; /* Smooth transition for scaling */
+}
+
+/* Hover state */
+.edit-button:hover {
+  background-color: #e0e0e0; /* Change background color on hover */
+  transform: scale(1.05); /* Slightly enlarge the button */
+}
+
+/* Scale the image on hover for a nice visual effect */
+.edit-button:hover img {
+  transform: scale(1.2); /* Slightly enlarge the icon */
+}
+
+/* Active state (when clicked) */
+.edit-button:active {
+  background-color: #d0d0d0; /* Darken background slightly on click */
+  transform: scale(0.95); /* Shrink button on click for feedback */
+}
+
+/* Active state for icon */
+.edit-button:active img {
+  transform: scale(1); /* Reset icon scaling when clicked */
+}
+
+.upload-input {
+  display: none; /* Hides the default file input element */
+}
